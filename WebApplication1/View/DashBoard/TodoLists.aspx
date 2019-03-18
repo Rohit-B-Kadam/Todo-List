@@ -81,7 +81,7 @@
                                 <SortedDescendingCellStyle BackColor="#EAEAD3" />
                                 <SortedDescendingHeaderStyle BackColor="#575357" />
                             </asp:GridView>
-                            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [TaskId], [Title] FROM [Task] WHERE ([UserId] = @UserId) ORDER BY [Priority] DESC">
+                            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [TaskId], [Title] FROM [Task] WHERE (([UserId] = @UserId) AND ([Status] = 'incomplete')) ORDER BY [Priority] DESC">
                                 <SelectParameters>
                                     <asp:SessionParameter DefaultValue="1" Name="UserId" SessionField="UserId" Type="Int32" />
                                 </SelectParameters>
@@ -90,6 +90,7 @@
                         <div class="card-footer">
                             <div class="button-grp">
                                 <asp:Button ID="BtnComplete" CssClass="btn btn-success" runat="server" Text="Complete" Width="120px" OnClick="BtnComplete_Click" />
+                                <asp:Button ID="Button1" CssClass="btn btn-danger" runat="server" Text="Delete" Width="120px" OnClick="Button1_Click" />
                             </div>
                             <div class="alert alert-success" role="alert">
                                 <asp:Label ID="LblShowStatus" runat="server"></asp:Label>  

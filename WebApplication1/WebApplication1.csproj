@@ -190,6 +190,7 @@
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
+    <Content Include="View\DashBoard\CompleteTaskList.aspx" />
     <Content Include="View\DashBoard\TodoLists.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -245,6 +246,13 @@
     </Compile>
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="View\DashBoard\CompleteTaskList.aspx.cs">
+      <DependentUpon>CompleteTaskList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\DashBoard\CompleteTaskList.aspx.designer.cs">
+      <DependentUpon>CompleteTaskList.aspx</DependentUpon>
     </Compile>
     <Compile Include="View\DashBoard\TodoLists.aspx.cs">
       <DependentUpon>TodoLists.aspx</DependentUpon>

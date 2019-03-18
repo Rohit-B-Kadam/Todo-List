@@ -13,7 +13,7 @@ namespace WebApplication1.View.DashBoard
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+
         }
 
         protected void AddTask_Click(object sender, EventArgs e)
@@ -31,12 +31,12 @@ namespace WebApplication1.View.DashBoard
             }
         }
 
-        public void AddTaskInDataBase(string title , int priority, int userId)
+        public void AddTaskInDataBase(string title, int priority, int userId)
         {
             /**connection string*/
             string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             //User is reserve keyword so write in []
-            
+
             /**Create and open connection*/
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -51,7 +51,7 @@ namespace WebApplication1.View.DashBoard
                     command.Parameters.AddWithValue("@status", "incomplete");
                     command.Parameters.AddWithValue("@priority", priority);
                     command.Parameters.AddWithValue("@userId", userId);
-                
+
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
                     command.Connection = connection;
@@ -87,9 +87,9 @@ namespace WebApplication1.View.DashBoard
 
         }
 
-        protected void BtnComplete_Click(object sender, EventArgs e)
+        protected void BtnComplete_Click(object sender, EventArgs e)// complete method
         {
-            
+
             foreach (GridViewRow row in grdTaskView.Rows)
             {
                 CheckBox cbox = (row.Cells[0].FindControl("Chk") as CheckBox);
@@ -104,9 +104,41 @@ namespace WebApplication1.View.DashBoard
             grdTaskView.DataBind();
             LblShowStatus.Text = "Selected Task is set as Complete";
         }
-    
-        
+
+
         private void CompleteRow(int taskId)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("CompleteTask", con);
+                cmd.Parameters.AddWithValue("@taskId", taskId);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Connection = con;
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)//delete method
+        {
+            foreach (GridViewRow row in grdTaskView.Rows)
+            {
+                CheckBox cbox = (row.Cells[0].FindControl("Chk") as CheckBox);
+                int taskId = Convert.ToInt32(row.Cells[1].Text);
+
+                if (cbox.Checked)
+                {
+                    DeleteRow(taskId);
+                }
+
+            }
+            grdTaskView.DataBind();
+            LblShowStatus.Text = "Selected Task has been Deleted";
+        }
+
+        private void DeleteRow(int taskId)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
